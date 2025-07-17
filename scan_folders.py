@@ -19,9 +19,9 @@ def scan_hardware():
     conn = sqlite3.connect("case_db.sqlite")
     cursor = conn.cursor()
 
-    # Create extended table
+    # Create cases table
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS extended_cases (
+        CREATE TABLE IF NOT EXISTS cases (
             case_id TEXT PRIMARY KEY,
             title TEXT,
             category TEXT,
@@ -51,7 +51,7 @@ def scan_hardware():
                 case_data = extract_case_info(case_path, model_name, group_name)
 
                 cursor.execute("""
-                    INSERT OR IGNORE INTO extended_cases
+                    INSERT OR IGNORE INTO cases
                     (case_id, title, category, group_name, model, path, files, has_tech_doc)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """, case_data)
